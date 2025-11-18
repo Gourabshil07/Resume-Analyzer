@@ -4,15 +4,16 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from groq import Groq
 import re
-import streamlit as st
 import os
+
+
+if "GROQ_API_KEY" not in st.secrets:
+    st.error("GROQ_API_KEY missing in Streamlit Secrets!")
+    st.stop()
 
 # Load environment variables
 api_key = st.secrets["GROQ_API_KEY"]
 
-if not api_key:
-    st.error("Missing GROQ_API_KEY in your .env file.")
-    st.stop()
 
 # Session states
 if "form_submitted" not in st.session_state:
@@ -99,14 +100,13 @@ if st.session_state.form_submitted:
     match_percentage = round(similarity_score * 100, 2)
 
     st.subheader("Resume Match Score:")
-    st.progress(float(match_percentage )/ 100)
+    st.progress(min(1, max(0, match_percentage / 100)))
+
     st.write(f"**Match Percentage:** {match_percentage}%")
 
     report_scores = extract_scores(report)
     avg_score = sum(report_scores) / len(report_scores) if report_scores else 0
 
-    
-    
 
     st.subheader("Resume Analysis Report:")
     st.markdown(f"""
@@ -116,3 +116,9 @@ if st.session_state.form_submitted:
         """, unsafe_allow_html=True)
 
     st.download_button("Download Report", data=report, file_name="resume_report.txt", icon=":material/download:")
+
+    if st.button("🔄 Upload Another Resume"):
+        st.session_state.form_submitted = False
+        st.session_state.resume = ""
+        st.session_state.job_desc = ""
+        st.experimental_rerun()

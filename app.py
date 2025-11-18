@@ -4,12 +4,11 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from groq import Groq
 import re
-from dotenv import load_dotenv
+import streamlit as st
 import os
 
 # Load environment variables
-load_dotenv()
-api_key = os.getenv("GROQ_API_KEY")
+api_key = st.secrets["GROQ_API_KEY"]
 
 if not api_key:
     st.error("Missing GROQ_API_KEY in your .env file.")

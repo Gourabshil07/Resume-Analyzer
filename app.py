@@ -110,11 +110,10 @@ if st.session_state.form_submitted:
 
 
     st.subheader("Resume Analysis Report:")
-    st.markdown(f"""
-        <div style='text-align: left; background-color: #f9f9f9; padding: 10px; border-radius: 10px; margin: 5px 0;'>
-            {report}
-        </div>
-        """, unsafe_allow_html=True)
+    st.write("### 📄 Detailed Resume Report:")
+
+    # Render the full report safely on all devices
+    st.text_area("Report:", report, height=400)
 
     st.download_button("Download Report", data=report, file_name="resume_report.txt", icon=":material/download:")
 

@@ -122,4 +122,4 @@ if st.session_state.form_submitted:
         st.session_state.form_submitted = False
         st.session_state.resume = ""
         st.session_state.job_desc = ""
-        st.experimental_rerun()
+        st.rerun()

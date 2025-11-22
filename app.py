@@ -55,9 +55,9 @@ def get_report(resume, job_desc):
     {job_desc}
 
     Output:
-    - List each skill or requirement from the job description.
-    - For each point, rate the alignment (x/5) with ✅, ❌, or ⚠️ and give a short reason.
-    - End with "Suggestions to improve your resume:" with detailed tips.
+    - List each missing skills and  requirement skills from the job description.
+    - End with "Suggestions to improve your resume:" with detailed tips and add some youtube videos links based on the missing skills 
+     where user learn the skills and imporves the knowledge( use only high-quality tech channels like Kunal Kushwaha, CodeWithHarry, FreeCodeCamp, Simplilearn, etc).
     """
     chat_completion = client.chat.completions.create(
         messages=[{"role": "user", "content": prompt}],

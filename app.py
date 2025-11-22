@@ -103,9 +103,9 @@ if st.session_state.form_submitted:
 
     st.subheader("Resume Match Score:")
     match_percentage = float(match_percentage)
-    match_percentage = round(similarity_score * 100, 2)
+    st.progress(min(1, max(0, match_percentage / 100)))
 
-    st.write(f"**Match Percentage:** {match_percentage:.2f}%")
+    st.write(f"**Match Percentage:** {match_percentage}%")
 
     report_scores = extract_scores(report)
     avg_score = sum(report_scores) / len(report_scores) if report_scores else 0

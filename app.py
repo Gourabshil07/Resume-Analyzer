@@ -73,7 +73,7 @@ def extract_scores(text):
     matches = re.findall(pattern, text)
     return [float(match) for match in matches]
 
-# ---------- Streamlit UI Flow ----------
+# Streamlit UI Flow 
 
 if not st.session_state.form_submitted:
     with st.form("my_form"):
@@ -105,7 +105,7 @@ if st.session_state.form_submitted:
     match_percentage = float(match_percentage)
     st.progress(min(1, max(0, match_percentage / 100)))
 
-    st.write(f"**Match Percentage:** {match_percentage}%")
+    st.write(f"**Match Percentage:** {match_percentage:.2f}%")
 
     report_scores = extract_scores(report)
     avg_score = sum(report_scores) / len(report_scores) if report_scores else 0

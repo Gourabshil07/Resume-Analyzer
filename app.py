@@ -46,24 +46,9 @@ def get_report(resume, job_desc):
     client = Groq(api_key=api_key)
     prompt = f"""
     You are an ATS evaluator and career expert. 
-    Analyze the candidate's resume based on the job description below and return EXACT JSON:
+    Analyze the candidate's resume based on the job description below.
 
-    {{
-    "match_percentage": 0-100,
-    "missing_skills": ["skill1", "skill2"],
-    "missing_requirements": ["req1", "req2"],
-    "improvement_tips": ["tip1", "tip2"],
-    "learning_resources": {{
-        "skill1": {{
-            "youtube": "youtube link",
-            "notes": "notes link"
-        }},
-        "skill2": {{
-            "youtube": "youtube link",
-            "notes": "notes link"
-      }}
-  }}
-}}
+    
 
     Candidate Resume:
     {resume}
@@ -71,9 +56,10 @@ def get_report(resume, job_desc):
     Job Description:
     {job_desc}
 
-    For learning resources:
-- Use top channels like Kunal Kushwaha, CodeWithHarry, FreeCodeCamp, Simplilearn.
-- Notes must be official documentation or GitHub articles.
+    Output:
+    - List each missing skills and  requirement skills from the job description.
+    - End with "Suggestions to improve your resume:" with detailed tips and add some youtube videos links based on the missing skills 
+     where user learn the skills and imporves the knowledge( use only high-quality tech channels like Kunal Kushwaha, CodeWithHarry, FreeCodeCamp, Simplilearn, etc).
     """
     chat_completion = client.chat.completions.create(
         messages=[{"role": "user", "content": prompt}],
